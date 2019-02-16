@@ -22,7 +22,7 @@ import zlib
 
 DIV_LINE_WIDTH = 80
 
-def setup_logger_kwargs(exp_name, seed=None, data_dir=None, datestamp=False):
+def setup_logger_kwargs(env_id, exp_name, seed=None, data_dir=None, datestamp=False):
     """
     Sets up the output_dir for a logger and returns a dict for logger kwargs.
 
@@ -69,7 +69,7 @@ def setup_logger_kwargs(exp_name, seed=None, data_dir=None, datestamp=False):
 
     # Make base path
     ymd_time = time.strftime("%Y-%m-%d_") if datestamp else ''
-    relpath = ''.join([ymd_time, exp_name])
+    relpath = ''.join([env_id, '/', ymd_time, exp_name])
     
     if seed is not None:
         # Make a seed-specific subfolder in the experiment directory.
@@ -506,8 +506,7 @@ class ExperimentGrid:
         preparing = colorize('Preparing to run the following experiments...', 
                              color='green', bold=True)
         joined_var_names = '\n'.join(var_names)
-        announcement = f"\n{preparing}\n\n{joined_var_names}\n\n{line}"
-        print(announcement)
+        print("\n%s\n\n%s\n\n%s" % (preparing, joined_var_names, line))
 
 
         if WAIT_BEFORE_LAUNCH > 0:
