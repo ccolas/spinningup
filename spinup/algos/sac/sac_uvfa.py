@@ -1,4 +1,5 @@
 import os
+import sys
 import numpy as np
 import tensorflow as tf
 import gym
@@ -9,6 +10,7 @@ from spinup.utils.logx import EpochLogger
 
 from spinup.algos.sac.replay_buffers import UVFAReplayBuffer
 
+sys.path.append('../../../')
 os.environ['LD_LIBRARY_PATH']+=':'+os.environ['HOME']+'/.mujoco/mjpro150/bin:'
 
 
