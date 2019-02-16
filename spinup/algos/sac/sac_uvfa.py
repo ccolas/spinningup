@@ -4,13 +4,14 @@ import numpy as np
 import tensorflow as tf
 import gym
 import time
+
+sys.path.append('../../../')
+
 from spinup.algos.sac import core
 from spinup.algos.sac.core import get_vars
 from spinup.utils.logx import EpochLogger
-
 from spinup.algos.sac.replay_buffers import UVFAReplayBuffer
 
-sys.path.append('../../../')
 os.environ['LD_LIBRARY_PATH']+=':'+os.environ['HOME']+'/.mujoco/mjpro150/bin:'
 
 
