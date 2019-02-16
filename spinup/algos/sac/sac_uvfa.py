@@ -20,7 +20,7 @@ Soft Actor-Critic
 (With slight variations that bring it closer to TD3)
 
 """
-def sac(env_fn, actor_critic=core.mlp_actor_critic, ac_kwargs=dict(), seed=int(np.random.randint(1e6)),
+def sac(env_fn, env_id, actor_critic=core.mlp_actor_critic, ac_kwargs=dict(), seed=int(np.random.randint(1e6)),
         steps_per_epoch=25000, epochs=200, replay_size=int(1e6), gamma=0.99,
         polyak=0.995, lr=1e-3, alpha=0.2, batch_size=100, start_steps=10000, 
         max_ep_len=50, logger_kwargs=dict(), save_freq=1, return_func='sum'):
@@ -323,18 +323,19 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('--env', type=str, default='FetchReach-v1')
+    parser.add_argument('--trial_id', type=int, default=0)
     parser.add_argument('--hid', type=int, default=300)
     parser.add_argument('--l', type=int, default=1)
     parser.add_argument('--gamma', type=float, default=0.99)
     parser.add_argument('--seed', '-s', type=int, default=int(np.random.randint(1e6)))
     parser.add_argument('--epochs', type=int, default=300)
-    parser.add_argument('--exp_name', type=str, default='sac')
+    parser.add_argument('--exp_name', type=str, default='tests_sac')
     args = parser.parse_args()
 
     from spinup.utils.run_utils import setup_logger_kwargs
-    logger_kwargs = setup_logger_kwargs(args.env, args.exp_name, args.seed)
+    logger_kwargs = setup_logger_kwargs(args.env, args.trial_id, args.exp_name)
 
-    sac(lambda : gym.make(args.env), actor_critic=core.mlp_actor_critic,
+    sac(lambda : gym.make(args.env), env_id=args.env, actor_critic=core.mlp_actor_critic,
         ac_kwargs=dict(hidden_sizes=[args.hid]*args.l),
         gamma=args.gamma, seed=args.seed, epochs=args.epochs,
         logger_kwargs=logger_kwargs)

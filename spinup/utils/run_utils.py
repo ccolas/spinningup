@@ -22,7 +22,7 @@ import zlib
 
 DIV_LINE_WIDTH = 80
 
-def setup_logger_kwargs(env_id, exp_name, seed=None, data_dir=None, datestamp=False):
+def setup_logger_kwargs(env_id, trial_id, exp_name, seed=None, data_dir=None, datestamp=False):
     """
     Sets up the output_dir for a logger and returns a dict for logger kwargs.
 
@@ -64,12 +64,21 @@ def setup_logger_kwargs(env_id, exp_name, seed=None, data_dir=None, datestamp=Fa
         logger_kwargs, a dict containing output_dir and exp_name.
     """
 
+    # Main data folder
+    data_dir = data_dir or DEFAULT_DATA_DIR
+
     # Datestamp forcing
     datestamp = datestamp or FORCE_DATESTAMP
 
     # Make base path
-    ymd_time = time.strftime("%Y-%m-%d_") if datestamp else ''
-    relpath = ''.join([env_id, '/', ymd_time, exp_name])
+    ymd_time = '/' + time.strftime("%Y-%m-%d_") if datestamp else ''
+    relpath = ''.join([exp_name, '/', env_id, '/'])
+
+    # Find a trial_id that does not exist already.
+    trial_id = find_trial_id(osp.join(data_dir, relpath), trial_id)
+
+    # Make definitive base path
+    relpath += ''.join([str(trial_id), ymd_time])
     
     if seed is not None:
         # Make a seed-specific subfolder in the experiment directory.
@@ -80,10 +89,32 @@ def setup_logger_kwargs(env_id, exp_name, seed=None, data_dir=None, datestamp=Fa
             subfolder = ''.join([exp_name, '_s', str(seed)])
         relpath = osp.join(relpath, subfolder)
 
-    data_dir = data_dir or DEFAULT_DATA_DIR
-    logger_kwargs = dict(output_dir=osp.join(data_dir, relpath), 
+    logger_kwargs = dict(output_dir=osp.join(data_dir, relpath),
                          exp_name=exp_name)
     return logger_kwargs
+
+
+def find_trial_id(dir, trial_id):
+    """
+    Create a directory to save results and arguments. Adds 100 to the trial id if a directory already exists.
+
+    Params
+    ------
+    - dir (str)
+        Main saving directory
+    - trial_id (int)
+        Trial identifier
+    """
+    new_trial_id = trial_id
+    i = 0
+    while True:
+        save_dir = dir+str(new_trial_id)+'/'
+        if not os.path.exists(save_dir):
+            return new_trial_id
+        new_trial_id += 100
+        i += 1
+        if i == 1000:
+            raise ValueError('1000 first trial_id are already used.')
 
 
 def call_experiment(exp_name, thunk, seed=0, num_cpu=1, data_dir=None, 
