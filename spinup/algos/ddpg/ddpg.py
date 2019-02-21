@@ -2,6 +2,8 @@ import numpy as np
 import tensorflow as tf
 import gym
 import time
+import sys
+sys.path.append('../../../')
 from spinup.algos.ddpg import core
 from spinup.algos.ddpg.core import get_vars
 from spinup.utils.logx import EpochLogger
