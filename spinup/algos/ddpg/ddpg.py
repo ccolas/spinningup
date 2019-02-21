@@ -5,7 +5,8 @@ import time
 from spinup.algos.ddpg import core
 from spinup.algos.ddpg.core import get_vars
 from spinup.utils.logx import EpochLogger
-
+import os
+os.environ['LD_LIBRARY_PATH']+=':'+os.environ['HOME']+'/.mujoco/mjpro150/bin:'
 
 class ReplayBuffer:
     """
@@ -42,7 +43,7 @@ class ReplayBuffer:
 Deep Deterministic Policy Gradient (DDPG)
 
 """
-def ddpg(env_fn, actor_critic=core.mlp_actor_critic, ac_kwargs=dict(), seed=0, 
+def ddpg(env_fn, seed, actor_critic=core.mlp_actor_critic, ac_kwargs=dict(),
          steps_per_epoch=5000, epochs=100, replay_size=int(1e6), gamma=0.99, 
          polyak=0.995, pi_lr=1e-3, q_lr=1e-3, batch_size=100, start_steps=10000, 
          act_noise=0.1, max_ep_len=1000, logger_kwargs=dict(), save_freq=1):
@@ -280,18 +281,15 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('--env', type=str, default='HalfCheetah-v2')
-    parser.add_argument('--hid', type=int, default=300)
-    parser.add_argument('--l', type=int, default=1)
-    parser.add_argument('--gamma', type=float, default=0.99)
-    parser.add_argument('--seed', '-s', type=int, default=0)
-    parser.add_argument('--epochs', type=int, default=50)
+    parser.add_argument('--trial_id', type=int, default=0)
+    parser.add_argument('--seed', '-s', type=int, default=int(np.random.randint(1e6)))
+    parser.add_argument('--epochs', type=int, default=600)
     parser.add_argument('--exp_name', type=str, default='ddpg')
     args = parser.parse_args()
 
     from spinup.utils.run_utils import setup_logger_kwargs
-    logger_kwargs = setup_logger_kwargs(args.exp_name, args.seed)
+    logger_kwargs = setup_logger_kwargs(args.env, args.trial_id, args.exp_name)
 
     ddpg(lambda : gym.make(args.env), actor_critic=core.mlp_actor_critic,
-         ac_kwargs=dict(hidden_sizes=[args.hid]*args.l),
-         gamma=args.gamma, seed=args.seed, epochs=args.epochs,
+         seed=args.seed, epochs=args.epochs,
          logger_kwargs=logger_kwargs)
