@@ -6,6 +6,8 @@ from spinup.algos.sac import core
 from spinup.algos.sac.core import get_vars
 from spinup.utils.logx import EpochLogger
 from spinup.algos.sac.replay_buffers import ReplayBuffer
+import os
+os.environ['LD_LIBRARY_PATH']+=':'+os.environ['HOME']+'/.mujoco/mjpro150/bin:'
 
 
 """
@@ -16,7 +18,7 @@ Soft Actor-Critic
 
 """
 def sac(env_fn, actor_critic=core.mlp_actor_critic, ac_kwargs=dict(), seed=0, 
-        steps_per_epoch=5000, epochs=100, replay_size=int(1e6), gamma=0.99, 
+        steps_per_epoch=5000, epochs=600, replay_size=int(1e6), gamma=0.99,
         polyak=0.995, lr=1e-3, alpha=0.2, batch_size=100, start_steps=10000, 
         max_ep_len=1000, logger_kwargs=dict(), save_freq=1):
     """
@@ -291,18 +293,14 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('--env', type=str, default='HalfCheetah-v2')
-    parser.add_argument('--hid', type=int, default=300)
-    parser.add_argument('--l', type=int, default=1)
-    parser.add_argument('--gamma', type=float, default=0.99)
-    parser.add_argument('--seed', '-s', type=int, default=0)
-    parser.add_argument('--epochs', type=int, default=50)
-    parser.add_argument('--exp_name', type=str, default='sac')
+    parser.add_argument('--trial_id', type=int, default=0)
+    parser.add_argument('--seed', '-s', type=int, default=int(np.random.randint(1e6)))
+    parser.add_argument('--epochs', type=int, default=600)
+    parser.add_argument('--exp_name', type=str, default='sac_hc')
     args = parser.parse_args()
 
     from spinup.utils.run_utils import setup_logger_kwargs
-    logger_kwargs = setup_logger_kwargs(args.exp_name, args.seed)
-
+    logger_kwargs = setup_logger_kwargs(args.env, args.trial_id, args.exp_name)
     sac(lambda : gym.make(args.env), actor_critic=core.mlp_actor_critic,
-        ac_kwargs=dict(hidden_sizes=[args.hid]*args.l),
-        gamma=args.gamma, seed=args.seed, epochs=args.epochs,
+        seed=args.seed, epochs=args.epochs,
         logger_kwargs=logger_kwargs)
