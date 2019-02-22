@@ -6,28 +6,28 @@
 #SBATCH -o run_td3_hc.sh.out
 rm log.txt; 
 export EXP_INTERP='/cm/shared/apps/intel/composer_xe/python3.5/intelpython3/bin/python3' ;
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 0 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 1 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 2 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 3 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 4 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 5 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 6 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 7 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 8 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 9 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 10 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 11 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 12 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 13 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 14 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 15 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 16 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 17 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 18 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 19 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 20 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 21 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 22 --exp_name td3_hc & 
-$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 23 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 24 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 25 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 26 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 27 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 28 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 29 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 30 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 31 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 32 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 33 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 34 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 35 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 36 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 37 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 38 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 39 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 40 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 41 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 42 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 43 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 44 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 45 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 46 --exp_name td3_hc & 
+$EXP_INTERP td3.py --env HalfCheetah-v2 --trial_id 47 --exp_name td3_hc & 
 wait
